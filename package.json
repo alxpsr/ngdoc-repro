@@ -2,7 +2,8 @@
   "name": "xdev",
   "version": "0.0.1",
   "scripts": {
-    "build": "ng run xdev:ngdoc-build"
+    "build": "ng run xdev:ngdoc-build",
+    "serve": "ng run xdev:ngdoc-serve"
   },
   "sideEffects": false,
   "private": true,

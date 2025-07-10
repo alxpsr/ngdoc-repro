@@ -19,13 +19,17 @@
         "ngdoc-build": {
           "builder": "@ng-doc/builder:application",
           "options": {
-            "outputPath": "dist/talk-docs",
-            "index": "docs/src/index.html",
             "browser": "docs/src/main.ts",
             "polyfills": ["zone.js"],
-            "tsConfig": "docs/tsconfig.app.json",
-            "inlineStyleLanguage": "css",
+            "tsConfig": "./tsconfig.docs.json",
+            "inlineStyleLanguage": "scss",
+            "index": "docs/src/index.html",
             "assets": [
+              {
+                "glob": "**/*",
+                "input": "node_modules/@ng-doc/app/assets",
+                "output": "assets/ng-doc/app"
+              },
               {
                 "glob": "**/*",
                 "input": "node_modules/@ng-doc/ui-kit/assets",
@@ -33,25 +37,32 @@
               },
               {
                 "glob": "**/*",
-                "input": "node_modules/@ng-doc/app/assets",
-                "output": "assets/ng-doc/app"
+                "input": "ng-doc/ng-doc-minimal/assets",
+                "output": "assets/ng-doc"
+              },
+              {
+                "glob": "**/*",
+                "input": "public"
               }
             ],
-            "styles": ["node_modules/@ng-doc/app/styles/global.css"],
-            "scripts": []
+            "styles": [
+              "node_modules/@ng-doc/app/styles/global.css",
+              "docs/src/styles.css"
+            ],
+            "allowedCommonJsDependencies": ["@ng-doc/core"]
           },
           "configurations": {
             "production": {
-              "budgets": [
+              "budgets1": [
                 {
                   "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "4mb"
+                  "maximumWarning": "500kB",
+                  "maximumError": "1MB"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
+                  "maximumWarning": "4kB",
+                  "maximumError": "8kB"
                 }
               ],
               "outputHashing": "all"
@@ -59,8 +70,7 @@
             "development": {
               "optimization": false,
               "extractLicenses": false,
-              "sourceMap": true,
-              "namedChunks": true
+              "sourceMap": true
             }
           },
           "defaultConfiguration": "production"
